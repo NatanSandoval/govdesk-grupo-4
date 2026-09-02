@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  <p>Total de chamados cadastrados: <strong>{{ total }}</strong></p>
+  <table>
+    <tr><th>ID</th><th>Título</th><th>Status</th></tr>
+    {% for c in chamados %}
+    <tr>
+      <td>{{ c.id }}</td>
+      <td>{{ c.titulo }}</td>
+      <td>{{ c.status }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

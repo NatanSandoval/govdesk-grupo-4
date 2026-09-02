@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovDesk</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        nav { background: #f4f4f4; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
+        nav a { margin-right: 15px; text-decoration: none; color: #333; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GovDesk System</h1>
+        <nav>
+            <a href="/">Início</a>
+            <a href="/sobre">Sobre a Equipe</a>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
