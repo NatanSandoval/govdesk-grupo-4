@@ -7,8 +7,8 @@ Projeto desenvolvido para a disciplina de Gestao e Governanca de Tecnologia da I
 | Nome | Papel | Responsabilidade Principal |
 | :--- | :--- | :--- |
 | **Isabella Jacques** | Product Owner / CIO | Prioriza as funcionalidades, regras de negócio e entregas de cada semana. |
-| **Guilherme Cimino** **Ruan Bauer** | Dev Lead | Organiza a arquitetura do código Flask, estrutura de diretórios e garante a execução sem erros. |
-| **Natan Correa** **Max Iago**| QA / Auditoria | Realiza testes de usabilidade, validação de rotas e mantém o histórico de commits organizado no GitHub. |
+| **Guilherme Cimino** e **Ruan Bauer** | Dev Lead | Organiza a arquitetura do código Flask, estrutura de diretórios e garante a execução sem erros. |
+| **Natan Correa** e **Max Iago**| QA / Auditoria | Realiza testes de usabilidade, validação de rotas e mantém o histórico de commits organizado no GitHub. |
 
 ---
 
