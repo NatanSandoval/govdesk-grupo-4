@@ -1,10 +1,10 @@
-# PETI — Plano Estratégico de TI do Projeto 
+# PETI — Plano Estratégico de TI do Projeto
 
-**Sistema de Gerenciamento e Controle de Estoque**
+**Sistema de Gerenciamento de Estoques**
 
-| Campo | Descrição | 
-| :--- | :--- | 
-**Objetivo de Negócio** | O presente projeto tem como objetivo facilitar a conexão entre trabalhadores autônomos e pessoas físicas ou empresas que necessitam de serviços especializados. A plataforma permitirá a busca por profissionais de acordo com sua área de atuação, localização e disponibilidade, reduzindo o tempo de procura e ampliando as oportunidades de trabalho. |
-**Objetivo de TI** | Como particularidade, este sistema tem o dever de permitir um pedido de ação e sua resposta. Assim que tiver um pedido do lado do usuário, irá aparecer a solicitação para o ofertante de serviço. |
-**Indicador de Sucesso** | Após  duas semanas de utilização, o projeto será avaliado com base na quantidade de solicitações realizadas, no tempo médio para encontrar um profissional e na satisfação dos usuários, medida por meio das avaliações dos serviços. Como meta inicial, busca-se reduzir o tempo de busca por profissionais e alcançar avaliações positivas dos usuários. |
-**Prioridade da Semana** | criação do banco de dados para cadastros de autônomos e clientes e criação de interace.|
+| Campo | Descrição |
+| :--- | :--- |
+| **Objetivo de Negócio** | Garantir a visibilidade e o controle em tempo real dos itens armazenados, eliminando a perda de produtos por extravio ou validade e reduzindo falhas de suprimento que impactam o atendimento e as operações da organização. |
+| **Objetivo de TI** | Disponibilizar uma aplicação web centralizada e responsiva que permita o cadastro estruturado de produtos, controle automatizado de entradas e saídas, consulta dinâmica de saldos e emissão de alertas automáticos para itens com estoque abaixo do limite mínimo. |
+| **Indicador de Sucesso** | Reduzir em 100% as divergências manuais de contagem de inventário e garantir que 100% dos itens críticos tenham seus níveis de saldo atualizados e visíveis para a equipe até o fim do ciclo de implementação. |
+| **Prioridade da Semana** | Modelar o banco de dados SQL (tabelas de `produtos` e `movimentacoes`), integrar a conexão com o Flask e criar a interface visual com formulários para cadastro e listagem em tempo real. |
