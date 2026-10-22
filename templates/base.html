@@ -11,13 +11,24 @@
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
+        * { box-sizing: border-box; }
+        form { display: grid; gap: 14px; max-width: 520px; }
+        label { display: grid; gap: 4px; font-weight: bold; }
+        input, textarea, select, button { font: inherit; padding: 8px; }
+        input, textarea, select { width: 100%; border: 1px solid #767676; border-radius: 4px; }
+        button { background: #1e2761; color: white; border: 0; border-radius: 6px; cursor: pointer; }
+        .orientacao { display: block; margin: 0; padding: 10px; color: #374151; background: #f4f4f4; font-size: 0.9rem; }
+        .erro { background: #fdecea; color: #8a1f17; padding: 10px 14px; border-radius: 6px; }
+        .tabela { overflow-x: auto; }
+        .alerta { color: #8a1f17; background: #fdecea; }
     </style>
 </head>
 <body>
     <header>
-        <h1>GovDesk System</h1>
+        <h1>GovDesk — Gestão de estoques</h1>
         <nav>
             <a href="/">Início</a>
+            <a href="{{ url_for('novo') }}">Novo produto</a>
             <a href="/sobre">Sobre a Equipe</a>
         </nav>
     </header>

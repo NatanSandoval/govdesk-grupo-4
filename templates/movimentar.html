@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Movimentar {{ produto.nome }}</h2>
+  <p>Saldo atual: <strong>{{ saldo }}</strong>. Estoque mínimo: {{ produto.estoque_minimo }}.</p>
+  {% if erro %}<p class="erro" role="alert">{{ erro }}</p>{% endif %}
+  <form method="post">
+    <label for="tipo">Tipo *
+      <select id="tipo" name="tipo">
+        <option value="entrada" {% if dados.get('tipo', 'entrada') == 'entrada' %}selected{% endif %}>Entrada</option>
+        <option value="saida" {% if dados.get('tipo') == 'saida' %}selected{% endif %}>Saída</option>
+      </select>
+    </label>
+    <label for="quantidade">Quantidade *
+      <input id="quantidade" name="quantidade" type="number" min="1" max="1000000000" step="1" value="{{ dados.get('quantidade', '') }}" required>
+    </label>
+    <label for="responsavel">Responsável *
+      <input id="responsavel" name="responsavel" value="{{ dados.get('responsavel', '') }}" required aria-describedby="orientacao-responsavel">
+    </label>
+    <p class="orientacao" id="orientacao-responsavel">Aviso de privacidade: use identificação fictícia neste protótipo. Não informe CPF, dados de saúde ou outros dados pessoais sensíveis.</p>
+    <button type="submit">Registrar movimentação</button>
+    <a href="{{ url_for('index') }}">Voltar para o estoque</a>
+  </form>
+  <h3>Histórico de movimentações</h3>
+  <div class="tabela"><table>
+    <thead><tr><th scope="col">Data e hora UTC</th><th scope="col">Tipo</th><th scope="col">Quantidade</th><th scope="col">Responsável</th></tr></thead>
+    <tbody>{% for m in historico %}
+      <tr><td>{{ m.criado_em }}</td><td>{{ 'Entrada' if m.tipo == 'entrada' else 'Saída' }}</td><td>{{ m.quantidade }}</td><td>{{ m.responsavel }}</td></tr>
+    {% else %}<tr><td colspan="4">Nenhuma movimentação registrada.</td></tr>{% endfor %}</tbody>
+  </table></div>
+{% endblock %}

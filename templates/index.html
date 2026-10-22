@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-  <p>Total de chamados cadastrados: <strong>{{ total }}</strong></p>
-  <table>
-    <tr><th>ID</th><th>Título</th><th>Status</th></tr>
-    {% for c in chamados %}
-    <tr>
-      <td>{{ c.id }}</td>
-      <td>{{ c.titulo }}</td>
-      <td>{{ c.status }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+  <h2>Estoque</h2>
+  <p>Total de produtos cadastrados: <strong>{{ total }}</strong></p>
+  <a href="{{ url_for('novo') }}">+ Novo produto</a>
+  <div class="tabela"><table>
+    <caption>Produtos e saldos atuais</caption>
+    <thead><tr>
+      {% for coluna in ['ID', 'Produto', 'Responsável', 'Prioridade de reposição', 'Saldo', 'Mínimo', 'Situação', 'Ações'] %}<th scope="col">{{ coluna }}</th>{% endfor %}
+    </tr></thead>
+    <tbody>{% for p in produtos %}
+      <tr><td>{{ p.id }}</td><td>{{ p.nome }}</td><td>{{ p.responsavel }}</td><td>{{ p.prioridade }}</td>
+        <td>{{ p.saldo }}</td><td>{{ p.estoque_minimo }}</td>
+        <td>{% if p.saldo < p.estoque_minimo %}<strong class="alerta">Abaixo do mínimo</strong>{% else %}Regular{% endif %}</td>
+        <td><a href="{{ url_for('movimentar', produto_id=p.id) }}">Movimentar {{ p.nome }}</a></td></tr>
+    {% else %}<tr><td colspan="8">Nenhum produto cadastrado. Cadastre o primeiro produto.</td></tr>{% endfor %}</tbody>
+  </table></div>
 {% endblock %}
