@@ -4,7 +4,7 @@ Projeto desenvolvido para a disciplina de Gestão e Governança de Tecnologia da
 
 O sistema planejado contempla cadastro de produtos, registro de entradas e saídas, consulta de saldos e alertas de estoque mínimo, para reduzir perdas e falhas de suprimento.
 
-**Estado atual:** a aplicação Flask ainda contém o protótipo inicial de chamados. As funcionalidades de estoque descritas no PETI são o escopo a implementar; esta entrega organiza a documentação e as responsabilidades.
+**Estado atual:** protótipo funcional de estoque com cadastro de produtos em `/novo`, validação no servidor, aviso de privacidade, entradas e saídas, histórico, consulta de saldos e alertas de estoque mínimo. Os dados são persistidos em SQLite. A entrega da Semana 6 foi adaptada ao escopo de estoques por orientação do grupo.
 
 ## Equipe do Projeto
 
@@ -21,6 +21,12 @@ A distribuição individual das responsabilidades está na [matriz RACI](docs/ra
 - [Plano Estratégico de TI](docs/PETI.md)
 - [Matriz RACI](docs/raci.md)
 - [Template de solicitação de mudança](docs/template-mudanca.md)
+- [Backlog da Sprint 1 e próximas entregas](docs/backlog.md)
+- [WBS do MVP](docs/wbs.md)
+- [Cards do Kanban](docs/kanban.md)
+- [Testes e roteiro de validação](docs/testes-semana6.md)
+- [Entrega e adaptação da Semana 6](docs/semana6.md)
+- [Privacidade](docs/lgpd.md)
 
 Alterações relevantes de escopo devem ser registradas usando o template e submetidas à pessoa responsável pela aprovação na matriz RACI antes da implementação.
 
@@ -28,7 +34,7 @@ Alterações relevantes de escopo devem ser registradas usando o template e subm
 
 O acompanhamento das tarefas e entregas das semanas é feito através do quadro Trello do grupo:
 
-* **Board do Trello:** [Acessar Trello do GovDesk - Grupo 4](https://trello.com/invite/b/6a98ddf57454667a93f97381/ATTId824acd5765d91a1e7acdfe7deb366a3782109BD/govdesk-grupo-4)
+* **Board do Trello:** [Acessar Trello do GovDesk - Grupo 4](https://trello.com/b/ztGAnpaq/govdesk-grupo-4)
 
 ## Como Executar o Projeto Localmente
 
@@ -52,3 +58,19 @@ O acompanhamento das tarefas e entregas das semanas é feito através do quadro 
    ```
 
 4. Acesse http://localhost:8080 (ou o endereço e porta informados no terminal).
+
+O banco `instance/govdesk.sqlite3` e as tabelas são criados automaticamente na primeira execução. O estoque começa vazio; use dados fictícios. Para escolher outro arquivo de banco, configure a variável `GOVDESK_DATABASE`. O saldo é calculado pelas entradas menos as saídas; saídas acima do disponível são bloqueadas. O mínimo é um limite de alerta e não impede consumo. A prioridade é de reposição e não um status de chamado.
+
+## Executar os testes
+
+No ambiente em que as dependências foram instaladas:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Os testes usam bancos temporários e não alteram o estoque local. A aplicação também pode ser iniciada por `flask --app app run --port 8080`, que identifica a fábrica `create_app`.
+
+## Limites do protótipo
+
+Use apenas em ambiente acadêmico com dados fictícios: autenticação, autorização e proteção CSRF estão previstas em H8. O aviso de privacidade não substitui controles de acesso nem comprova conformidade jurídica. A tabela LGPD original descreve o sistema planejado; os dados efetivamente gravados pelo protótipo estão detalhados em `docs/lgpd.md`.

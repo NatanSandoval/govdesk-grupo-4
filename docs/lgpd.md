@@ -1,5 +1,11 @@
 # Checklist LGPD do Projeto 
 
+## Protótipo da Semana 6
+
+O protótipo acadêmico coleta nome e descrição do produto, identificação do responsável, prioridade de reposição, mínimo, tipo e quantidade de movimentação e data e hora UTC. A identificação do responsável aparece na lista de produtos e no histórico. Use apenas identificações fictícias; os formulários orientam a não informar CPF nem dados pessoais sensíveis.
+
+Os registros permanecem no arquivo SQLite local `instance/govdesk.sqlite3` após reiniciar. O arquivo não é versionado no Git. O protótipo ainda não tem autenticação, restrição por perfil nem rotina de retenção e exclusão; esses controles devem ser definidos antes de uso com dados reais. Não há coleta de CPF ou e-mail pelo formulário atual, nem tabela de logs de acesso. Os dados e prazos da seção seguinte representam o planejamento original do sistema e precisam de validação pela organização antes de sua implantação.
+
 ## Dados Coletados 
 | Dado | Finalidade | Base Legal | Quem Acessa | Retenção |
 |------|-----------|------------|-------------|----------|
