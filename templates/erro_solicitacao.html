@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Atualização não realizada</h2>
+<p class="erro" role="alert">{{ erro }}</p>
+<a href="{{ url_for('detalhe_solicitacao', solicitacao_id=solicitacao_id) }}">Recarregar solicitação</a>
+{% endblock %}

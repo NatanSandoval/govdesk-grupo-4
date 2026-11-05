@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Solicitação {{ solicitacao.id }} de reposição</h2>
+<dl>
+  <dt>Produto</dt><dd>{{ solicitacao.produto }}</dd>
+  <dt>Quantidade</dt><dd>{{ solicitacao.quantidade }}</dd>
+  <dt>Solicitante</dt><dd>{{ solicitacao.solicitante }}</dd>
+  <dt>Prioridade</dt><dd>{{ solicitacao.prioridade }}</dd>
+  <dt>Status</dt><dd><strong>{{ status_labels[solicitacao.status] }}</strong></dd>
+  <dt>Descrição</dt><dd>{{ solicitacao.descricao or 'Sem descrição.' }}</dd>
+</dl>
+{% if solicitacao.status != 'concluida' %}
+<form method="post" action="{{ url_for('avancar_solicitacao', solicitacao_id=solicitacao.id) }}">
+  <input type="hidden" name="status_atual" value="{{ solicitacao.status }}">
+  <label for="responsavel">Responsável pela atualização *<input id="responsavel" name="responsavel" required aria-describedby="orientacao-atualizacao"></label>
+  <p class="orientacao" id="orientacao-atualizacao">Use identificação fictícia. Não informe dados pessoais sensíveis.</p>
+  {% if solicitacao.status == 'aberta' %}<button type="submit">Iniciar atendimento</button>
+  {% else %}<p>Conclua somente após conferir o recebimento integral. A conclusão registra uma entrada de {{ solicitacao.quantidade }} unidades no estoque.</p><button type="submit">Confirmar recebimento e concluir</button>{% endif %}
+</form>
+{% else %}<p>Recebimento concluído. Entrada registrada no histórico de estoque.</p>{% endif %}
+<h3>Histórico de status</h3>
+<div class="tabela"><table><thead><tr><th scope="col">Data e hora UTC</th><th scope="col">Status</th><th scope="col">Responsável</th></tr></thead>
+<tbody>{% for h in historico %}<tr><td>{{ h.criado_em }}</td><td>{{ status_labels[h.status] }}</td><td>{{ h.responsavel }}</td></tr>{% endfor %}</tbody></table></div>
+<p><a href="{{ url_for('solicitacoes') }}">Voltar às solicitações</a></p>
+{% endblock %}

@@ -5,6 +5,7 @@ from pathlib import Path
 from flask import Flask, abort, g, redirect, render_template, request, url_for
 
 PRIORIDADES = ["baixa", "média", "alta"]
+STATUS_REPOSICAO = {"aberta": "Aberta", "em andamento": "Em andamento", "concluida": "Concluída"}
 MAX_QUANTIDADE = 1_000_000_000
 
 equipe = [
@@ -63,6 +64,25 @@ def create_app(test_config=None):
                 produto_id INTEGER NOT NULL REFERENCES produtos(id),
                 tipo TEXT NOT NULL CHECK (tipo IN ('entrada', 'saida')),
                 quantidade INTEGER NOT NULL CHECK (quantidade > 0),
+                responsavel TEXT NOT NULL,
+                criado_em TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );
+            CREATE TABLE IF NOT EXISTS solicitacoes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                produto_id INTEGER NOT NULL REFERENCES produtos(id),
+                quantidade INTEGER NOT NULL CHECK (quantidade > 0),
+                descricao TEXT NOT NULL DEFAULT '',
+                solicitante TEXT NOT NULL,
+                prioridade TEXT NOT NULL CHECK (prioridade IN ('baixa', 'média', 'alta')),
+                status TEXT NOT NULL DEFAULT 'aberta' CHECK (status IN ('aberta', 'em andamento', 'concluida')),
+                criado_em TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                atualizado_em TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                movimentacao_id INTEGER UNIQUE REFERENCES movimentacoes(id)
+            );
+            CREATE TABLE IF NOT EXISTS historico_solicitacoes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                solicitacao_id INTEGER NOT NULL REFERENCES solicitacoes(id),
+                status TEXT NOT NULL,
                 responsavel TEXT NOT NULL,
                 criado_em TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
             );
@@ -142,6 +162,103 @@ def create_app(test_config=None):
     @app.route("/sobre")
     def sobre():
         return render_template("sobre.html", equipe=equipe)
+
+    @app.route("/solicitacoes")
+    def solicitacoes():
+        registros = get_db().execute("""
+            SELECT s.*, p.nome AS produto FROM solicitacoes s
+            JOIN produtos p ON p.id = s.produto_id ORDER BY s.id DESC
+        """).fetchall()
+        return render_template("solicitacoes.html", solicitacoes=registros, status_labels=STATUS_REPOSICAO)
+
+    @app.route("/solicitacoes/nova", methods=["GET", "POST"])
+    def nova_solicitacao():
+        db = get_db()
+        erro = None
+        if request.method == "POST":
+            try:
+                produto_id = quantidade_inteira(request.form.get("produto_id"), minimo=1)
+                quantidade = quantidade_inteira(request.form.get("quantidade"), minimo=1)
+                solicitante = request.form.get("solicitante", "").strip()
+                prioridade = request.form.get("prioridade", "média")
+                descricao = request.form.get("descricao", "").strip()
+                if not solicitante:
+                    raise ValueError("Informe o solicitante.")
+                if prioridade not in PRIORIDADES:
+                    raise ValueError("Prioridade inválida.")
+                if db.execute("SELECT id FROM produtos WHERE id = ?", (produto_id,)).fetchone() is None:
+                    raise ValueError("Selecione um produto cadastrado.")
+                with db:
+                    cursor = db.execute("INSERT INTO solicitacoes (produto_id, quantidade, descricao, solicitante, prioridade) VALUES (?, ?, ?, ?, ?)",
+                                        (produto_id, quantidade, descricao, solicitante, prioridade))
+                    db.execute("INSERT INTO historico_solicitacoes (solicitacao_id, status, responsavel) VALUES (?, 'aberta', ?)",
+                               (cursor.lastrowid, solicitante))
+                return redirect(url_for("detalhe_solicitacao", solicitacao_id=cursor.lastrowid))
+            except ValueError as exc:
+                erro = str(exc)
+        produtos = db.execute("SELECT id, nome FROM produtos ORDER BY nome, id").fetchall()
+        return render_template("nova_solicitacao.html", produtos=produtos, erro=erro,
+                               dados=request.form, prioridades=PRIORIDADES)
+
+    @app.route("/solicitacoes/<int:solicitacao_id>")
+    def detalhe_solicitacao(solicitacao_id):
+        registro = get_db().execute("SELECT s.*, p.nome AS produto FROM solicitacoes s JOIN produtos p ON p.id = s.produto_id WHERE s.id = ?",
+                                    (solicitacao_id,)).fetchone()
+        if registro is None:
+            abort(404)
+        historico = get_db().execute("SELECT * FROM historico_solicitacoes WHERE solicitacao_id = ? ORDER BY id", (solicitacao_id,)).fetchall()
+        return render_template("detalhe_solicitacao.html", solicitacao=registro,
+                               historico=historico, status_labels=STATUS_REPOSICAO)
+
+    @app.route("/solicitacoes/<int:solicitacao_id>/avancar", methods=["POST"])
+    def avancar_solicitacao(solicitacao_id):
+        db = get_db()
+        responsavel = request.form.get("responsavel", "").strip()
+        esperado = request.form.get("status_atual", "")
+        try:
+            with db:
+                db.execute("BEGIN IMMEDIATE")
+                registro = db.execute("SELECT * FROM solicitacoes WHERE id = ?", (solicitacao_id,)).fetchone()
+                if registro is None:
+                    abort(404)
+                if not responsavel:
+                    raise ValueError("Informe o responsável pela atualização.")
+                if registro["status"] != esperado or registro["status"] == "concluida":
+                    raise ValueError("Esta solicitação já foi atualizada. Recarregue a página antes de continuar.")
+                proximo = "em andamento" if registro["status"] == "aberta" else "concluida"
+                movimentacao_id = None
+                if proximo == "concluida":
+                    cursor = db.execute("INSERT INTO movimentacoes (produto_id, tipo, quantidade, responsavel) VALUES (?, 'entrada', ?, ?)",
+                                        (registro["produto_id"], registro["quantidade"], responsavel))
+                    movimentacao_id = cursor.lastrowid
+                db.execute("UPDATE solicitacoes SET status = ?, atualizado_em = CURRENT_TIMESTAMP, movimentacao_id = ? WHERE id = ?",
+                           (proximo, movimentacao_id, solicitacao_id))
+                db.execute("INSERT INTO historico_solicitacoes (solicitacao_id, status, responsavel) VALUES (?, ?, ?)",
+                           (solicitacao_id, proximo, responsavel))
+            return redirect(url_for("detalhe_solicitacao", solicitacao_id=solicitacao_id))
+        except ValueError as exc:
+            return render_template("erro_solicitacao.html", erro=str(exc), solicitacao_id=solicitacao_id), 409
+
+    @app.route("/indicadores")
+    def indicadores():
+        db = get_db()
+        total_produtos = db.execute("SELECT COUNT(*) FROM produtos").fetchone()[0]
+        abaixo_minimo = db.execute("""
+            SELECT COUNT(*) FROM (
+                SELECT p.id, p.estoque_minimo, COALESCE(SUM(CASE WHEN m.tipo = 'entrada'
+                    THEN m.quantidade ELSE -m.quantidade END), 0) AS saldo
+                FROM produtos p LEFT JOIN movimentacoes m ON m.produto_id = p.id
+                GROUP BY p.id HAVING saldo < p.estoque_minimo
+            )
+        """).fetchone()[0]
+        contagens = {r["status"]: r["total"] for r in db.execute("SELECT status, COUNT(*) AS total FROM solicitacoes GROUP BY status")}
+        total = sum(contagens.values())
+        concluidas = contagens.get("concluida", 0)
+        return render_template("indicadores.html", total_produtos=total_produtos,
+                               abaixo_minimo=abaixo_minimo, contagens=contagens,
+                               total=total, concluidas=concluidas,
+                               percentual=round(100 * concluidas / total, 1) if total else 0,
+                               status_labels=STATUS_REPOSICAO)
 
     return app
 

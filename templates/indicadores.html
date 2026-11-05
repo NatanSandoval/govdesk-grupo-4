@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Indicadores do estoque e das reposições</h2>
+<p>Valores calculados sobre os registros atuais do banco local. Não representam resultados de uma operação real.</p>
+<table><caption>Posição atual do estoque</caption><thead><tr><th scope="col">Indicador</th><th scope="col">Valor</th></tr></thead><tbody>
+<tr><td>Produtos cadastrados</td><td>{{ total_produtos }}</td></tr>
+<tr><td>Produtos abaixo do mínimo</td><td>{{ abaixo_minimo }}</td></tr>
+<tr><td>Solicitações de reposição</td><td>{{ total }}</td></tr>
+{% for status, label in status_labels.items() %}<tr><td>{{ label }}</td><td>{{ contagens.get(status, 0) }}</td></tr>{% endfor %}
+<tr><td>Reposições concluídas sobre o total</td><td>{{ percentual }}%</td></tr>
+</tbody></table>
+<p>Fórmula: concluídas ÷ total de solicitações × 100. Quando não há solicitações, exibimos 0% como convenção. Um saldo igual ao mínimo não dispara alerta.</p>
+<p><a href="{{ url_for('solicitacoes') }}">Acompanhar solicitações</a></p>
+{% endblock %}

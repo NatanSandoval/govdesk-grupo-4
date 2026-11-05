@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Solicitações de reposição</h2>
+<p>Acompanhe o atendimento até o recebimento dos itens no estoque.</p>
+<a href="{{ url_for('nova_solicitacao') }}">+ Nova solicitação</a>
+<div class="tabela"><table>
+  <caption>Reposições registradas</caption>
+  <thead><tr>{% for coluna in ['ID', 'Produto', 'Quantidade', 'Solicitante', 'Prioridade', 'Status', 'Ações'] %}<th scope="col">{{ coluna }}</th>{% endfor %}</tr></thead>
+  <tbody>{% for s in solicitacoes %}<tr>
+    <td>{{ s.id }}</td><td>{{ s.produto }}</td><td>{{ s.quantidade }}</td><td>{{ s.solicitante }}</td><td>{{ s.prioridade }}</td><td>{{ status_labels[s.status] }}</td>
+    <td><a href="{{ url_for('detalhe_solicitacao', solicitacao_id=s.id) }}">Acompanhar solicitação {{ s.id }}</a></td>
+  </tr>{% else %}<tr><td colspan="7">Nenhuma solicitação registrada.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}
