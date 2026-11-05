@@ -7,6 +7,11 @@ O protótipo acadêmico coleta nome e descrição do produto, identificação do
 Os registros permanecem no arquivo SQLite local `instance/govdesk.sqlite3` após reiniciar. O arquivo não é versionado no Git. O protótipo ainda não tem autenticação, restrição por perfil nem rotina de retenção e exclusão; esses controles devem ser definidos antes de uso com dados reais. Não há coleta de CPF ou e-mail pelo formulário atual, nem tabela de logs de acesso. Os dados e prazos da seção seguinte representam o planejamento original do sistema e precisam de validação pela organização antes de sua implantação.
 
 ## Dados Coletados 
+
+Na Semana 10, o protótipo também registra produto e quantidade solicitados, descrição da necessidade, identificação fictícia do solicitante, prioridade e status. O histórico de cada atualização registra responsável e hora UTC. Esses dados permanecem no mesmo SQLite local e são acessíveis às pessoas que tiverem acesso à aplicação, pois não há perfis implementados. Use somente dados fictícios na demonstração. O formulário orienta a não inserir informações sensíveis na descrição.
+
+O recebimento gera uma movimentação vinculada à solicitação. A aplicação não envia e-mails, não coleta CPF e não autentica fornecedores. Os prazos e as bases da tabela abaixo pertencem ao planejamento original e precisam de validação institucional antes do uso operacional, conforme indicado acima.
+
 | Dado | Finalidade | Base Legal | Quem Acessa | Retenção |
 |------|-----------|------------|-------------|----------|
 | Nome completo do operador | Identificar o usuário responsável pelas movimentações de produtos e contagens de estoque | Execução de contrato | Equipe de TI, Gerência de Estoque e RH | Durante o vínculo empregatício + 5 anos |

@@ -21,6 +21,13 @@ Cada atividade possui exatamente uma pessoa com A, inclusive quando combinado co
 | Avaliar e aprovar solicitações de mudança de escopo | A/R | C | C | C | C |
 | Documentar decisões e manter a rastreabilidade das entregas no GitHub | C | R | C | C | A/R |
 | Atualizar o Kanban após verificar os critérios de conclusão da entrega | A | I | I | R | C |
+| Implementar o fluxo de solicitações e recebimento integral | C | R | A/R | C | I |
+| Validar status, recebimento único e indicadores | I | C | C | A/R | R |
+| Consolidar BPMN, lições e plano de melhoria | C | C | C | R | A/R |
+| Preparar procedimentos de backup e restauração | C | A/R | R | C | I |
+| Aceitar formalmente o encerramento e priorizar pendências | A/R | C | C | C | C |
+
+As linhas da Semana 10 definem responsáveis de referência para revisão e continuidade. A elaboração assistida dos arquivos não registra aceite ou contribuição pessoal em nome deles. As três raias do BPMN usam os nomes dos papéis acima: Product Owner / CIO, Dev Lead e QA / Auditoria.
 
 ## Aplicação da matriz
 

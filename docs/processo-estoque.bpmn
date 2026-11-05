@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="GovDeskDefinitions" targetNamespace="https://github.com/NatanSandoval/govdesk-grupo-4">
+  <bpmn:process id="ProcessoReposicao" name="Reposição de estoque TO BE" isExecutable="false">
+    <bpmn:laneSet id="Raias">
+      <bpmn:lane id="po" name="Product Owner / CIO">
+        <bpmn:flowNodeRef>priorizar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>revisar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>fim</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="dev" name="Dev Lead">
+        <bpmn:flowNodeRef>registrar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>valido</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>corrigir</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>atender</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>concluir</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="qa" name="QA / Auditoria">
+        <bpmn:flowNodeRef>inicio</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>identificar</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>receber</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>verificar</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="inicio" name="Necessidade">
+      <bpmn:outgoing>f1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="identificar" name="Identificar mínimo ou necessidade">
+      <bpmn:incoming>f1</bpmn:incoming>
+      <bpmn:outgoing>f2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="priorizar" name="Definir prioridade">
+      <bpmn:incoming>f2</bpmn:incoming>
+      <bpmn:outgoing>f3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="registrar" name="Registrar solicitação e validar campos">
+      <bpmn:incoming>f3</bpmn:incoming>
+      <bpmn:outgoing>f4</bpmn:outgoing>
+      <bpmn:incoming>f6</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="valido" name="Válida?">
+      <bpmn:incoming>f4</bpmn:incoming>
+      <bpmn:outgoing>f5</bpmn:outgoing>
+      <bpmn:outgoing>f7</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="corrigir" name="Corrigir campos">
+      <bpmn:incoming>f5</bpmn:incoming>
+      <bpmn:outgoing>f6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="atender" name="Iniciar atendimento Em andamento">
+      <bpmn:incoming>f7</bpmn:incoming>
+      <bpmn:outgoing>f8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="receber" name="Conferir recebimento integral dos itens">
+      <bpmn:incoming>f8</bpmn:incoming>
+      <bpmn:outgoing>f9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="concluir" name="Confirmar recebimento Concluída e entrada">
+      <bpmn:incoming>f9</bpmn:incoming>
+      <bpmn:outgoing>f10</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="verificar" name="Verificar saldo e indicadores">
+      <bpmn:incoming>f10</bpmn:incoming>
+      <bpmn:outgoing>f11</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="revisar" name="Revisar conclusão">
+      <bpmn:incoming>f11</bpmn:incoming>
+      <bpmn:outgoing>f12</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="fim" name="Fim">
+      <bpmn:incoming>f12</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="f1" sourceRef="inicio" targetRef="identificar" name="" />
+    <bpmn:sequenceFlow id="f2" sourceRef="identificar" targetRef="priorizar" name="" />
+    <bpmn:sequenceFlow id="f3" sourceRef="priorizar" targetRef="registrar" name="" />
+    <bpmn:sequenceFlow id="f4" sourceRef="registrar" targetRef="valido" name="" />
+    <bpmn:sequenceFlow id="f5" sourceRef="valido" targetRef="corrigir" name="Não" />
+    <bpmn:sequenceFlow id="f6" sourceRef="corrigir" targetRef="registrar" name="" />
+    <bpmn:sequenceFlow id="f7" sourceRef="valido" targetRef="atender" name="Sim" />
+    <bpmn:sequenceFlow id="f8" sourceRef="atender" targetRef="receber" name="" />
+    <bpmn:sequenceFlow id="f9" sourceRef="receber" targetRef="concluir" name="" />
+    <bpmn:sequenceFlow id="f10" sourceRef="concluir" targetRef="verificar" name="" />
+    <bpmn:sequenceFlow id="f11" sourceRef="verificar" targetRef="revisar" name="" />
+    <bpmn:sequenceFlow id="f12" sourceRef="revisar" targetRef="fim" name="" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="DiagramaReposicao">
+    <bpmndi:BPMNPlane id="PlanoReposicao" bpmnElement="ProcessoReposicao">
+      <bpmndi:BPMNShape id="po_di" bpmnElement="po" isHorizontal="true">
+        <dc:Bounds x="30" y="60" width="1800" height="190" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="dev_di" bpmnElement="dev" isHorizontal="true">
+        <dc:Bounds x="30" y="250" width="1800" height="190" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="qa_di" bpmnElement="qa" isHorizontal="true">
+        <dc:Bounds x="30" y="460" width="1800" height="190" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="inicio_di" bpmnElement="inicio">
+        <dc:Bounds x="130" y="530" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="identificar_di" bpmnElement="identificar">
+        <dc:Bounds x="200" y="500" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="priorizar_di" bpmnElement="priorizar">
+        <dc:Bounds x="390" y="110" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="registrar_di" bpmnElement="registrar">
+        <dc:Bounds x="590" y="280" width="150" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="valido_di" bpmnElement="valido">
+        <dc:Bounds x="790" y="290" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="corrigir_di" bpmnElement="corrigir">
+        <dc:Bounds x="590" y="375" width="150" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="atender_di" bpmnElement="atender">
+        <dc:Bounds x="900" y="280" width="150" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="receber_di" bpmnElement="receber">
+        <dc:Bounds x="1100" y="500" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="concluir_di" bpmnElement="concluir">
+        <dc:Bounds x="1300" y="280" width="160" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="verificar_di" bpmnElement="verificar">
+        <dc:Bounds x="1500" y="500" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="revisar_di" bpmnElement="revisar">
+        <dc:Bounds x="1500" y="110" width="150" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="fim_di" bpmnElement="fim">
+        <dc:Bounds x="1740" y="130" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f1_di" bpmnElement="f1">
+        <di:waypoint x="166" y="548" />
+        <di:waypoint x="200" y="548" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f2_di" bpmnElement="f2">
+        <di:waypoint x="275" y="500" />
+        <di:waypoint x="275" y="150" />
+        <di:waypoint x="390" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f3_di" bpmnElement="f3">
+        <di:waypoint x="540" y="150" />
+        <di:waypoint x="665" y="150" />
+        <di:waypoint x="665" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f4_di" bpmnElement="f4">
+        <di:waypoint x="740" y="315" />
+        <di:waypoint x="790" y="315" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f5_di" bpmnElement="f5">
+        <di:waypoint x="815" y="340" />
+        <di:waypoint x="815" y="405" />
+        <di:waypoint x="740" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f6_di" bpmnElement="f6">
+        <di:waypoint x="665" y="375" />
+        <di:waypoint x="665" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f7_di" bpmnElement="f7">
+        <di:waypoint x="840" y="315" />
+        <di:waypoint x="900" y="315" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f8_di" bpmnElement="f8">
+        <di:waypoint x="1050" y="315" />
+        <di:waypoint x="1180" y="315" />
+        <di:waypoint x="1180" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f9_di" bpmnElement="f9">
+        <di:waypoint x="1260" y="540" />
+        <di:waypoint x="1380" y="540" />
+        <di:waypoint x="1380" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f10_di" bpmnElement="f10">
+        <di:waypoint x="1460" y="315" />
+        <di:waypoint x="1575" y="315" />
+        <di:waypoint x="1575" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f11_di" bpmnElement="f11">
+        <di:waypoint x="1650" y="540" />
+        <di:waypoint x="1690" y="540" />
+        <di:waypoint x="1690" y="220" />
+        <di:waypoint x="1575" y="220" />
+        <di:waypoint x="1575" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f12_di" bpmnElement="f12">
+        <di:waypoint x="1650" y="150" />
+        <di:waypoint x="1740" y="150" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

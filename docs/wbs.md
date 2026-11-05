@@ -33,3 +33,29 @@ GovDesk — MVP
 ```
 
 Os pacotes 1 a 4 organizam a Semana 6; o pacote 5 registra trabalho futuro. Os nomes representam os responsáveis de referência para revisão e continuidade, não comprovação de autoria da implementação assistida. A [RACI](raci.md) mantém um único A por atividade.
+
+## Extensão da WBS para encerramento
+
+Os pacotes abaixo continuam sob a mesma raiz GovDesk — MVP. A raiz é o nível 1, os pacotes 6 a 8 são o nível 2 e as folhas são o nível 3. As estimativas são propostas e não registros de trabalho individual.
+
+```text
+GovDesk — MVP
+  6 Solicitações e indicadores
+    6.1 Criar tabelas e formulário de reposição [H9; Ruan; 1 h]
+    6.2 Implementar avanço e histórico [H9; Ruan; 1 h]
+    6.3 Vincular recebimento único e transação [H9; Ruan; 1 h]
+    6.4 Implementar painel e fórmulas [H10; Guilherme; 1 h]
+    6.5 Verificar migração, reenvio e reversão de falha [H9; Natan; 1 h]
+  7 Documentação e apresentação
+    7.1 Consolidar RACI e BPMN TO-BE [H11; Max; 1 h]
+    7.2 Consolidar BSC, não conformidades e roadmap [H11; Max; 1 h]
+    7.3 Preparar termo e procedimentos de sustentação [H11; Guilherme; 1 h]
+    7.4 Revisar lições com cada integrante [H11; todos; 1 h]
+    7.5 Preparar roteiro e apresentação [H11; Isabella; 1 h]
+    7.6 Executar go/no-go e conferir Kanban [H11; Natan; 1 h]
+  8 Aceite e entrega pelo grupo
+    8.1 Registrar aceite e ressalvas da PO [H7; Isabella; 30 min]
+    8.2 Preencher autoavaliações individualmente [H11; todos; 30 min]
+    8.3 Conferir commits, enviar link e congelar versão [H11; Natan; 30 min]
+    8.4 Ensaiar oito minutos e perguntas [H11; todos; 30 min]
+```

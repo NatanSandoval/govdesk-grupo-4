@@ -15,7 +15,24 @@ Os responsáveis abaixo são referências para revisão e continuidade, conforme
 | H7 | Governança do projeto | Como PO, quero avaliar a adaptação e as prioridades, para alinhar a entrega ao PETI. | Revisar docs/semana6.md, backlog e WBS; registrar a decisão da PO, inclusive histórias adiadas, sem presumir aprovação em nome dela. | média | Isabella Jacques | 2 |
 | H8 | Controle de acesso | Como gestor, quero limitar alterações a operadores autorizados, para proteger os registros de estoque. | Autenticação, autorização de escrita, proteção CSRF e testes de acesso implementados antes de uso com dados reais. | alta | Guilherme Cimino | 2 |
 
-## Priorização
+## Continuação e encerramento da Semana 10
+
+As histórias H1 a H6 permanecem como base da Sprint 1. As histórias abaixo organizam a Sprint de encerramento e o backlog futuro, sem presumir que a antiga Sprint 2 tenha sido executada ou aprovada.
+
+| ID | Épico | História | Critério de aceite | Prioridade | Responsável de referência | Sprint ou horizonte | Estado técnico |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| H9 | Reposição | Como operador, quero abrir e acompanhar uma reposição, para registrar sua evolução. | Produto existente, quantidade positiva, solicitante e prioridade válidos; Aberta, Em andamento e Concluída com histórico; conclusão gera uma única entrada atômica; página antiga rejeitada com 409. | alta | Ruan Bauer | encerramento | implementado e testado |
+| H10 | Indicadores | Como gestor, quero contagens e percentual de conclusão, para acompanhar o banco local. | /indicadores mostra produtos, mínimo, solicitações por status e concluídas/total; total zero não causa divisão por zero; fórmula e limitação explícitas. | alta | Guilherme Cimino | encerramento | implementado e testado |
+| H11 | Encerramento | Como auditor, quero documentos, testes e roteiro consolidados, para preparar o aceite e a apresentação. | BPMN com três raias da RACI; termo com planejado/entregue, riscos, sustentação e aceite pendente; pelo menos cinco lições com cinco responsáveis; roteiro 8+2 e autoavaliações para preenchimento. | alta | Max Iago | encerramento | documentação preparada |
+| H12 | Continuidade | Como responsável técnico, quero restaurar backups, para reduzir perda de registros. | Validar uma cópia restaurada em banco separado e definir rotina, acesso e responsável com a PO. | alta | Guilherme Cimino | primeira semana do piloto | procedimento documentado, ensaio pendente |
+| H13 | Reposição | Como operador, quero cancelar ou receber parcialmente, para representar entregas reais. | PO aprova transições; totais recebidos não superam o solicitado; cancelamento não gera entrada; testes contra duplicação. | média | Ruan Bauer | segunda semana do piloto | futuro |
+| H14 | Medição | Como PO, quero uma linha de base operacional, para avaliar as metas do PETI. | Registrar fonte, período e amostra de perdas e atendimento, comparar resultados e revisar BSC. | média | Isabella Jacques | após um mês de piloto | futuro |
+
+H7 continua pendente de revisão pessoal da PO e H8 continua no backlog antes de dados reais. H9 a H11 compõem a entrega da Semana 10. H12 a H14 têm horizontes propostos, sujeitos ao aceite. O estado do Trello e os IDs devem acompanhar essa distinção.
+
+No encerramento, o card H7 também reúne a coordenação das validações individuais, autoavaliações, contribuições reais e envio ao professor. Cada ação pessoal é executada pelo próprio integrante; a referência de coordenação não transfere essas obrigações à PO. Links e posição registrada em [kanban.md](kanban.md).
+
+## Priorização histórica da Semana 6
 
 H1 a H6 formam a entrega técnica da Semana 6. H7 e H8 ficam para a Sprint 2: a revisão da PO depende de manifestação dela, e o controle de acesso será uma evolução antes de uso operacional. Essa sequência é uma proposta para revisão da PO, não um registro de decisão pessoal já tomada por ela. Mudanças seguem o [template de solicitação](template-mudanca.md).
 

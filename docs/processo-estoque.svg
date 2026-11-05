@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1860" height="720" viewBox="0 0 1860 720" role="img" aria-labelledby="titulo descricao">
+<title id="titulo">Processo de reposição do GovDesk TO BE</title>
+<desc id="descricao">Três raias com os papéis da RACI e tarefas de priorização, cadastro, validação, atendimento, recebimento e revisão.</desc>
+<rect width="1860" height="720" fill="white"/>
+<defs><marker id="seta" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#334155"/></marker></defs>
+<g font-family="Arial,sans-serif" fill="#111827"><text x="30" y="35" font-size="24" font-weight="bold">GovDesk   Processo de reposição TO BE</text>
+<rect x="30" y="60" width="1800" height="190" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="62" y="155" font-size="18" text-anchor="middle" transform="rotate(-90 62 155)">Product Owner / CIO</text>
+<rect x="30" y="250" width="1800" height="190" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="62" y="345" font-size="18" text-anchor="middle" transform="rotate(-90 62 345)">Dev Lead</text>
+<rect x="30" y="460" width="1800" height="190" fill="#f8fafc" stroke="#94a3b8"/>
+<text x="62" y="555" font-size="18" text-anchor="middle" transform="rotate(-90 62 555)">QA / Auditoria</text>
+<polyline points="166,548 200,548" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="275,500 275,150 390,150" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="540,150 665,150 665,280" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="740,315 790,315" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="815,340 815,405 740,405" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<text x="823" y="332" font-size="15">Não</text>
+<polyline points="665,375 665,350" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="840,315 900,315" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<text x="848" y="307" font-size="15">Sim</text>
+<polyline points="1050,315 1180,315 1180,500" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="1260,540 1380,540 1380,350" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="1460,315 1575,315 1575,500" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="1650,540 1690,540 1690,220 1575,220 1575,190" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<polyline points="1650,150 1740,150" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#seta)"/>
+<circle cx="148.0" cy="548.0" r="18" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="148.0" y="588" text-anchor="middle" font-size="15">Necessidade</text>
+<rect x="200" y="500" width="150" height="80" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="275.0" y="534.5" text-anchor="middle" font-size="15">Identificar mínimo</text>
+<text x="275.0" y="555.5" text-anchor="middle" font-size="15">ou necessidade</text>
+<rect x="390" y="110" width="150" height="80" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="465.0" y="155.0" text-anchor="middle" font-size="15">Definir prioridade</text>
+<rect x="590" y="280" width="150" height="70" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="665.0" y="309.5" text-anchor="middle" font-size="15">Registrar solicitação</text>
+<text x="665.0" y="330.5" text-anchor="middle" font-size="15">e validar campos</text>
+<polygon points="815.0,290 840,315.0 815.0,340 790,315.0" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="815.0" y="321.0" text-anchor="middle" font-size="24">×</text><text x="815.0" y="278" text-anchor="middle" font-size="15">Válida?</text>
+<rect x="590" y="375" width="150" height="60" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="665.0" y="410.0" text-anchor="middle" font-size="15">Corrigir campos</text>
+<rect x="900" y="280" width="150" height="70" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="975.0" y="309.5" text-anchor="middle" font-size="15">Iniciar atendimento</text>
+<text x="975.0" y="330.5" text-anchor="middle" font-size="15">Em andamento</text>
+<rect x="1100" y="500" width="160" height="80" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="1180.0" y="534.5" text-anchor="middle" font-size="15">Conferir recebimento</text>
+<text x="1180.0" y="555.5" text-anchor="middle" font-size="15">integral dos itens</text>
+<rect x="1300" y="280" width="160" height="70" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="1380.0" y="309.5" text-anchor="middle" font-size="15">Confirmar recebimento</text>
+<text x="1380.0" y="330.5" text-anchor="middle" font-size="15">Concluída e entrada</text>
+<rect x="1500" y="500" width="150" height="80" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="1575.0" y="534.5" text-anchor="middle" font-size="15">Verificar saldo</text>
+<text x="1575.0" y="555.5" text-anchor="middle" font-size="15">e indicadores</text>
+<rect x="1500" y="110" width="150" height="80" rx="9" fill="white" stroke="#1e2761" stroke-width="2"/>
+<text x="1575.0" y="155.0" text-anchor="middle" font-size="15">Revisar conclusão</text>
+<circle cx="1758.0" cy="148.0" r="18" fill="white" stroke="#1e2761" stroke-width="4"/>
+<text x="1758.0" y="188" text-anchor="middle" font-size="15">Fim</text>
+<text x="30" y="690" font-size="16">Raias representam responsabilidades da equipe. Conferência de entrega e revisão da PO são atividades humanas externas ao app.</text></g></svg>
