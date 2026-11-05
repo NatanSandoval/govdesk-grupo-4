@@ -1,4 +1,6 @@
-# GovDesk — Gerenciamento de Estoques
+# ProntoEstoque
+
+Nome atual da aplicação desenvolvida como GovDesk na disciplina. O ProntoEstoque reúne catálogo, movimentações e reposições em uma interface responsiva, com identidade visual própria, busca e filtros de estoque. O nome do repositório e as referências históricas da disciplina permanecem identificados como GovDesk.
 
 Projeto desenvolvido para a disciplina de Gestão e Governança de Tecnologia da Informação. O GovDesk tem como escopo o gerenciamento de estoques em ambiente governamental/corporativo, conforme o [Plano Estratégico de TI](docs/PETI.md).
 

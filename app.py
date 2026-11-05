@@ -96,7 +96,20 @@ def create_app(test_config=None):
             FROM produtos p LEFT JOIN movimentacoes m ON m.produto_id = p.id
             GROUP BY p.id ORDER BY p.id
         """).fetchall()
-        return render_template("index.html", produtos=produtos, total=len(produtos))
+        total = len(produtos)
+        unidades = sum(p["saldo"] for p in produtos)
+        abaixo_minimo = sum(p["saldo"] < p["estoque_minimo"] for p in produtos)
+        pendentes = get_db().execute("SELECT COUNT(*) FROM solicitacoes WHERE status != 'concluida'").fetchone()[0]
+        busca = request.args.get("q", "").strip().casefold()
+        situacao = request.args.get("situacao", "")
+        prioridade = request.args.get("prioridade", "")
+        produtos = [p for p in produtos
+                    if (not busca or busca in p["nome"].casefold() or busca in p["responsavel"].casefold())
+                    and (situacao != "repor" or p["saldo"] < p["estoque_minimo"])
+                    and (situacao != "regular" or p["saldo"] >= p["estoque_minimo"])
+                    and (prioridade not in PRIORIDADES or p["prioridade"] == prioridade)]
+        return render_template("index.html", produtos=produtos, total=total,
+                               unidades=unidades, abaixo_minimo=abaixo_minimo, pendentes=pendentes)
 
     @app.route("/novo", methods=["GET", "POST"])
     def novo():

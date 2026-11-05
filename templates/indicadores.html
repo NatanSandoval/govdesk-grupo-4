@@ -1,14 +1,12 @@
 {% extends "base.html" %}
+{% block title %}Indicadores{% endblock %}
+{% block breadcrumb %}Indicadores{% endblock %}
 {% block content %}
-<h2>Indicadores do estoque e das reposições</h2>
-<p>Valores calculados sobre os registros atuais do banco local. Não representam resultados de uma operação real.</p>
-<table><caption>Posição atual do estoque</caption><thead><tr><th scope="col">Indicador</th><th scope="col">Valor</th></tr></thead><tbody>
-<tr><td>Produtos cadastrados</td><td>{{ total_produtos }}</td></tr>
-<tr><td>Produtos abaixo do mínimo</td><td>{{ abaixo_minimo }}</td></tr>
-<tr><td>Solicitações de reposição</td><td>{{ total }}</td></tr>
-{% for status, label in status_labels.items() %}<tr><td>{{ label }}</td><td>{{ contagens.get(status, 0) }}</td></tr>{% endfor %}
-<tr><td>Reposições concluídas sobre o total</td><td>{{ percentual }}%</td></tr>
-</tbody></table>
-<p>Fórmula: concluídas ÷ total de solicitações × 100. Quando não há solicitações, exibimos 0% como convenção. Um saldo igual ao mínimo não dispara alerta.</p>
-<p><a href="{{ url_for('solicitacoes') }}">Acompanhar solicitações</a></p>
+<div class="page-head"><div><h1>Indicadores</h1><p>Uma visão clara do estoque e do andamento das reposições.</p></div><a class="button" href="{{ url_for('solicitacoes') }}">Acompanhar solicitações {{ icon('arrow',16) }}</a></div>
+<div class="stats"><section class="stat"><div class="stat-top">Produtos cadastrados<span class="stat-symbol">{{ icon('box',18) }}</span></div><p class="stat-number">{{ total_produtos }}</p><p class="stat-bottom">Itens no seu catálogo</p></section><section class="stat attention"><div class="stat-top">Abaixo do mínimo<span class="stat-symbol">{{ icon('alert',18) }}</span></div><p class="stat-number">{{ abaixo_minimo }}</p><p class="stat-bottom">Produtos que pedem atenção</p></section><section class="stat"><div class="stat-top">Solicitações de reposição<span class="stat-symbol">{{ icon('arrows',18) }}</span></div><p class="stat-number">{{ total }}</p><p class="stat-bottom">Total de solicitações registradas</p></section><section class="stat featured"><div class="stat-top">Concluídas<span class="stat-symbol">{{ icon('check',18) }}</span></div><p class="stat-number">{{ concluidas }}</p><p class="stat-bottom">Recebimentos confirmados</p></section></div>
+<div class="split-panels"><section class="panel"><header class="panel-head"><div><h2>Andamento das reposições</h2><p>Distribuição das solicitações por etapa.</p></div>{{ icon('arrows',19) }}</header><div class="metric-breakdown">{% for value,label in status_labels.items() %}<div class="metric-row"><span>{{ label }}</span><strong>{{ contagens.get(value,0) }} solicitações</strong></div><div class="track {{ 'progress' if value == 'em andamento' else 'neutral' if value == 'aberta' else '' }}"><span style="width:{{ (100 * contagens.get(value,0) / total) if total else 0 }}%"></span></div>{% endfor %}</div></section>
+<section class="panel"><header class="panel-head"><div><h2>Reposições concluídas</h2><p>Recebimentos em relação ao total solicitado.</p></div>{{ icon('chart',19) }}</header><div class="completion"><div class="ring" style="--percentage:{{ percentual }}" role="img" aria-label="{{ percentual }}% das reposições concluídas"><strong>{{ percentual }}%</strong></div><p><strong>{{ concluidas }} de {{ total }}</strong> solicitações tiveram seu recebimento confirmado.{% if not total %} As próximas reposições aparecerão aqui.{% endif %}</p></div></section></div>
+<section class="panel"><header class="panel-head"><div><h2>Detalhamento dos indicadores</h2><p>Valores calculados sobre os registros atuais do banco local.</p></div></header><div class="tabela"><table><caption>Posição atual do estoque</caption><thead><tr><th scope="col">Indicador</th><th scope="col">Valor</th></tr></thead><tbody>
+<tr><td>Produtos cadastrados</td><td>{{ total_produtos }}</td></tr><tr><td>Produtos abaixo do mínimo</td><td>{{ abaixo_minimo }}</td></tr><tr><td>Solicitações de reposição</td><td>{{ total }}</td></tr>{% for value,label in status_labels.items() %}<tr><td>{{ label }}</td><td>{{ contagens.get(value,0) }}</td></tr>{% endfor %}<tr><td>Reposições concluídas sobre o total</td><td>{{ percentual }}%</td></tr></tbody></table></div><div class="table-bottom"><span>Concluídas ÷ total de solicitações × 100</span><span>Sem solicitações, exibimos 0% como convenção</span></div></section>
+<p class="orientacao">{{ icon('shield',16) }}<span>Dados do ambiente acadêmico. Não representam resultados de uma operação real. Um saldo igual ao mínimo não dispara alerta.</span></p>
 {% endblock %}

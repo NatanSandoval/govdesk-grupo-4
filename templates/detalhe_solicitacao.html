@@ -1,25 +1,13 @@
 {% extends "base.html" %}
+{% block title %}Solicitação {{ solicitacao.id }}{% endblock %}
+{% block breadcrumb %}Reposições / Acompanhamento{% endblock %}
 {% block content %}
-<h2>Solicitação {{ solicitacao.id }} de reposição</h2>
-<dl>
-  <dt>Produto</dt><dd>{{ solicitacao.produto }}</dd>
-  <dt>Quantidade</dt><dd>{{ solicitacao.quantidade }}</dd>
-  <dt>Solicitante</dt><dd>{{ solicitacao.solicitante }}</dd>
-  <dt>Prioridade</dt><dd>{{ solicitacao.prioridade }}</dd>
-  <dt>Status</dt><dd><strong>{{ status_labels[solicitacao.status] }}</strong></dd>
-  <dt>Descrição</dt><dd>{{ solicitacao.descricao or 'Sem descrição.' }}</dd>
-</dl>
-{% if solicitacao.status != 'concluida' %}
-<form method="post" action="{{ url_for('avancar_solicitacao', solicitacao_id=solicitacao.id) }}">
-  <input type="hidden" name="status_atual" value="{{ solicitacao.status }}">
-  <label for="responsavel">Responsável pela atualização *<input id="responsavel" name="responsavel" required aria-describedby="orientacao-atualizacao"></label>
-  <p class="orientacao" id="orientacao-atualizacao">Use identificação fictícia. Não informe dados pessoais sensíveis.</p>
-  {% if solicitacao.status == 'aberta' %}<button type="submit">Iniciar atendimento</button>
-  {% else %}<p>Conclua somente após conferir o recebimento integral. A conclusão registra uma entrada de {{ solicitacao.quantidade }} unidades no estoque.</p><button type="submit">Confirmar recebimento e concluir</button>{% endif %}
-</form>
-{% else %}<p>Recebimento concluído. Entrada registrada no histórico de estoque.</p>{% endif %}
-<h3>Histórico de status</h3>
-<div class="tabela"><table><thead><tr><th scope="col">Data e hora UTC</th><th scope="col">Status</th><th scope="col">Responsável</th></tr></thead>
-<tbody>{% for h in historico %}<tr><td>{{ h.criado_em }}</td><td>{{ status_labels[h.status] }}</td><td>{{ h.responsavel }}</td></tr>{% endfor %}</tbody></table></div>
-<p><a href="{{ url_for('solicitacoes') }}">Voltar às solicitações</a></p>
+<a class="back-link" href="{{ url_for('solicitacoes') }}">{{ icon('back',14) }}Voltar às solicitações</a>
+<div class="page-head"><div><h1>Solicitação #{{ '%04d'|format(solicitacao.id) }}</h1><p>Acompanhamento da reposição de {{ solicitacao.produto }}.</p></div>{{ status(solicitacao.status,status_labels[solicitacao.status]) }}</div>
+<div class="steps" aria-label="Etapas da reposição">{% for value,label in [('aberta','Aberta'),('em andamento','Em andamento'),('concluida','Concluída')] %}{% set current = solicitacao.status == value %}{% set done = solicitacao.status == 'concluida' or (solicitacao.status == 'em andamento' and value == 'aberta') %}<div class="step {{ 'current' if current else 'done' if done else '' }}" {% if current %}aria-current="step"{% endif %}><span class="step-number">{% if done and not current %}{{ icon('check',14) }}{% else %}{{ loop.index }}{% endif %}</span>{{ label }}{% if not loop.last %}<span class="step-line"></span>{% endif %}</div>{% endfor %}</div>
+{% if solicitacao.status == 'concluida' %}<div class="success-note">{{ icon('check',22) }}<div><h3>Recebimento concluído.</h3><p>Entrada registrada no histórico de estoque. As {{ solicitacao.quantidade }} unidades já compõem o saldo do produto.</p></div></div>{% endif %}
+<div class="detail-layout"><div><section class="panel"><header class="panel-head"><div><h2>Detalhes da solicitação</h2><p>REP-{{ '%04d'|format(solicitacao.id) }}</p></div><span class="stat-symbol">{{ icon('arrows',20) }}</span></header><dl class="detail-fields">
+<div><dt>Produto</dt><dd>{{ solicitacao.produto }}</dd></div><div><dt>Quantidade solicitada</dt><dd>{{ solicitacao.quantidade }} unidades</dd></div><div><dt>Solicitante</dt><dd>{{ solicitacao.solicitante }}</dd></div><div><dt>Prioridade</dt><dd>{{ priority(solicitacao.prioridade) }}</dd></div><div class="detail-description"><dt>Descrição</dt><dd>{{ solicitacao.descricao or 'Sem descrição.' }}</dd></div></dl></section>
+{% if solicitacao.status != 'concluida' %}<section class="panel"><header class="panel-head"><div><h2>{{ 'Iniciar o atendimento' if solicitacao.status == 'aberta' else 'Confirmar recebimento' }}</h2><p>{{ 'Identifique o responsável para avançar esta solicitação.' if solicitacao.status == 'aberta' else 'Confira os itens antes de atualizar o estoque.' }}</p></div></header><form class="form-side-section" method="post" action="{{ url_for('avancar_solicitacao', solicitacao_id=solicitacao.id) }}"><input type="hidden" name="status_atual" value="{{ solicitacao.status }}"><label for="responsavel">Responsável pela atualização *<input id="responsavel" name="responsavel" placeholder="Identificação do responsável" required aria-describedby="orientacao-atualizacao"></label><p class="orientacao" id="orientacao-atualizacao">{{ icon('shield',15) }}<span>Use identificação fictícia. Não informe dados pessoais sensíveis.</span></p>{% if solicitacao.status == 'aberta' %}<button type="submit">Iniciar atendimento {{ icon('arrow',16) }}</button>{% else %}<p>Conclua somente após conferir o recebimento integral. A conclusão registra uma entrada de {{ solicitacao.quantidade }} unidades no estoque.</p><button type="submit">{{ icon('check',17) }}Confirmar recebimento e concluir</button>{% endif %}</form></section>{% endif %}</div>
+<section class="panel"><header class="panel-head"><div><h2>Histórico de status</h2><p>Um registro para cada etapa.</p></div>{{ icon('clock',19) }}</header><ol class="timeline">{% for h in historico %}<li><span class="timeline-marker">{{ icon('check',14) }}</span><div><strong>{{ status_labels[h.status] }}</strong><p>{{ h.responsavel }}<br><time>{{ h.criado_em }}</time> UTC</p></div></li>{% endfor %}</ol></section></div>
 {% endblock %}

@@ -109,7 +109,7 @@ class EstoqueTests(unittest.TestCase):
         self.assertIn('<td>3</td>', html)
         self.assertEqual(self.mover(tipo='entrada', quantidade='2').status_code, 302)
         html = self.client.get('/').get_data(as_text=True)
-        self.assertNotIn('Abaixo do mínimo', html)
+        self.assertNotIn('<span class="dot"></span>Abaixo do mínimo', html)
         self.assertIn('Regular', html)
         historico = self.client.get('/produtos/1/movimentar')
         self.assertEqual(historico.status_code, 200)
