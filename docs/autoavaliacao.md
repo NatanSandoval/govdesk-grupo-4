@@ -2,6 +2,8 @@
 
 Cada integrante deve preencher sua própria seção e entregar ao professor pelo canal da disciplina. Os campos de contribuição, aprendizado e avaliação dos colegas não foram preenchidos em nome de ninguém. Vincule commits ou cards reais, sem alterar autoria.
 
+Um rascunho de resposta para Guilherme, baseado no acompanhamento registrado do projeto e sujeito à revisão pessoal, está em [respostas-semana10.md](respostas-semana10.md). Ele não representa uma autoavaliação já assinada ou enviada.
+
 ## Isabella Jacques
 
 Nome e papel: Isabella Jacques, Product Owner / CIO.

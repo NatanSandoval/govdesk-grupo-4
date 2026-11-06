@@ -1,4 +1,4 @@
-# Backlog do GovDesk
+# Backlog do ProntoEstoque
 
 A Sprint 1 adapta o exercício da Semana 6 ao gerenciamento de estoques definido no [PETI](PETI.md), conforme orientação do grupo nesta entrega. O cadastro de chamado foi convertido em cadastro de produto: título corresponde a nome do produto, solicitante a responsável e prioridade a prioridade de reposição. A descrição mantém o aviso de privacidade. Entradas e saídas, saldos e alertas completam o fluxo de estoque. Os dados ficam em SQLite, em vez da lista em memória do gabarito.
 
@@ -31,6 +31,8 @@ As histórias H1 a H6 permanecem como base da Sprint 1. As histórias abaixo org
 H7 continua pendente de revisão pessoal da PO e H8 continua no backlog antes de dados reais. H9 a H11 compõem a entrega da Semana 10. H12 a H14 têm horizontes propostos, sujeitos ao aceite. O estado do Trello e os IDs devem acompanhar essa distinção.
 
 No encerramento, o card H7 também reúne a coordenação das validações individuais, autoavaliações, contribuições reais e envio ao professor. Cada ação pessoal é executada pelo próprio integrante; a referência de coordenação não transfere essas obrigações à PO. Links e posição registrada em [kanban.md](kanban.md).
+
+A conferência do PDF desdobrou H7/H11 nos cards S10-01 a S10-07: Run e demonstração, aceite, validação das lições, ensaio, autoavaliações, contribuições reais e envio com congelamento. Todos permanecem A fazer até haver evidência. Os critérios detalhados estão nos cards vinculados em [kanban.md](kanban.md); a correspondência com a WBS mantém o mesmo escopo. O grupo confirmou que aceite e envio ainda não ocorreram.
 
 ## Priorização histórica da Semana 6
 

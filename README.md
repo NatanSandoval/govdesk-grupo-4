@@ -38,8 +38,9 @@ A distribuição individual das responsabilidades está na [matriz RACI](docs/ra
 - [Operação, backup e sustentação](docs/sustentacao.md)
 - [Testes e checklist final](docs/testes-semana10.md)
 - [Roteiro da apresentação em oito minutos](docs/apresentacao.md)
-- [PowerPoint editável da apresentação](docs/apresentacao/govdesk-semana10.pptx)
+- [PowerPoint editável da apresentação](docs/apresentacao/prontoestoque-semana10.pptx)
 - [Autoavaliação individual para preenchimento](docs/autoavaliacao.md)
+- [Respostas e checklist do PDF da Semana 10](docs/respostas-semana10.md)
 
 Alterações relevantes de escopo devem ser registradas usando o template e submetidas à pessoa responsável pela aprovação na matriz RACI antes da implementação.
 

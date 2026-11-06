@@ -46,7 +46,7 @@ flows = [
     ('f12', 'revisar', 'fim', '', [(1650, 150), (1740, 150)]),
 ]
 
-definitions = ET.Element('{' + NS['bpmn'] + '}definitions', id='GovDeskDefinitions', targetNamespace='https://github.com/NatanSandoval/govdesk-grupo-4')
+definitions = ET.Element('{' + NS['bpmn'] + '}definitions', id='ProntoEstoqueDefinitions', targetNamespace='https://github.com/NatanSandoval/govdesk-grupo-4')
 process = element(definitions, 'bpmn', 'process', id='ProcessoReposicao', name='Reposição de estoque TO BE', isExecutable='false')
 lane_set = element(process, 'bpmn', 'laneSet', id='Raias')
 for lane_id, name, y in lanes:
@@ -79,11 +79,11 @@ ET.indent(definitions)
 ET.ElementTree(definitions).write(ROOT / 'docs/processo-estoque.bpmn', encoding='utf-8', xml_declaration=True)
 
 svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="1860" height="720" viewBox="0 0 1860 720" role="img" aria-labelledby="titulo descricao">',
-       '<title id="titulo">Processo de reposição do GovDesk TO BE</title>',
+       '<title id="titulo">Processo de reposição do ProntoEstoque TO BE</title>',
        '<desc id="descricao">Três raias com os papéis da RACI e tarefas de priorização, cadastro, validação, atendimento, recebimento e revisão.</desc>',
        '<rect width="1860" height="720" fill="white"/>',
        '<defs><marker id="seta" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#334155"/></marker></defs>',
-       '<g font-family="Arial,sans-serif" fill="#111827"><text x="30" y="35" font-size="24" font-weight="bold">GovDesk   Processo de reposição TO BE</text>']
+       '<g font-family="Arial,sans-serif" fill="#111827"><text x="30" y="35" font-size="24" font-weight="bold">ProntoEstoque   Processo de reposição TO BE</text>']
 for lane_id, name, y in lanes:
     svg += [f'<rect x="30" y="{y}" width="1800" height="190" fill="#f8fafc" stroke="#94a3b8"/>',
             f'<text x="62" y="{y+95}" font-size="18" text-anchor="middle" transform="rotate(-90 62 {y+95})">{escape(name)}</text>']

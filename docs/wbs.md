@@ -1,9 +1,9 @@
-# WBS do GovDesk
+# WBS do ProntoEstoque
 
 A raiz é o nível 1, os pacotes são o nível 2 e cada folha é o nível 3. Cada folha tem um executor de referência e cabe em aproximadamente uma hora ou menos. As estimativas não representam horas efetivamente trabalhadas.
 
 ```text
-GovDesk — MVP
+ProntoEstoque — MVP
   1 Cadastro de produtos
     1.1 Criar tabela SQL de produtos e conexão Flask [H1; Guilherme; 1 h]
     1.2 Implementar formulário e gravação em /novo [H1; Guilherme; 1 h]
@@ -36,10 +36,10 @@ Os pacotes 1 a 4 organizam a Semana 6; o pacote 5 registra trabalho futuro. Os n
 
 ## Extensão da WBS para encerramento
 
-Os pacotes abaixo continuam sob a mesma raiz GovDesk — MVP. A raiz é o nível 1, os pacotes 6 a 8 são o nível 2 e as folhas são o nível 3. As estimativas são propostas e não registros de trabalho individual.
+Os pacotes abaixo continuam sob a mesma raiz ProntoEstoque — MVP. A raiz é o nível 1, os pacotes 6 a 8 são o nível 2 e as folhas são o nível 3. As estimativas são propostas e não registros de trabalho individual.
 
 ```text
-GovDesk — MVP
+ProntoEstoque — MVP
   6 Solicitações e indicadores
     6.1 Criar tabelas e formulário de reposição [H9; Ruan; 1 h]
     6.2 Implementar avanço e histórico [H9; Ruan; 1 h]
@@ -59,3 +59,5 @@ GovDesk — MVP
     8.3 Conferir commits, enviar link e congelar versão [H11; Natan; 30 min]
     8.4 Ensaiar oito minutos e perguntas [H11; todos; 30 min]
 ```
+
+Na revisão do PDF, as folhas 7.6, 8.1, 7.4, 8.4 e 8.2 correspondem, respectivamente, aos cards S10-01 a S10-05. A folha 8.3 foi desdobrada nos cards S10-06 (conferir contribuições) e S10-07 (envio e congelamento), mantendo a estimativa total proposta de 30 minutos. Links e estados em [kanban.md](kanban.md). Preparar documentos não conclui essas ações do grupo.

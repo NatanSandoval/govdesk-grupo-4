@@ -2,7 +2,7 @@
 
 ## Testes automatizados
 
-Em 5 de novembro de 2026, `python -m unittest discover -s tests -v` executou **23 testes aprovados**: 12 em `test_app.py` e 11 em `test_encerramento.py`. A execução usa bancos SQLite temporários, independentes do banco existente. Flask 3.0.3 e Python 3.12 no ambiente verificado.
+Em 5 de novembro de 2026, `python -m unittest discover -s tests -v` executou **25 testes aprovados**: 12 em `test_app.py` e 13 em `test_encerramento.py`. A execução usa bancos SQLite temporários, independentes do banco existente. Flask 3.0.3 e Python 3.12 no ambiente verificado.
 
 | Área | Casos verificados | Resultado |
 | --- | --- | --- |
@@ -19,6 +19,10 @@ O verificador `python scripts/verificar_entrega.py` confere links locais dos doc
 ## Verificação pelo navegador
 
 Conferido em banco de demonstração separado em 5 de novembro de 2026: cadastro com saldo 2 e mínimo 5; aviso de privacidade visível; criação de reposição de 8; avanço para Em andamento sem recebimento; confirmação para Concluída com histórico dos três estados; painel com uma concluída, nenhum produto abaixo do mínimo e percentual de 100% nesse cenário fictício. O cenário não representa melhoria operacional medida.
+
+## Verificação da nova interface
+
+A marca ProntoEstoque e as telas responsivas foram verificadas no navegador. Busca por produto ou responsável e filtros combinados de situação e prioridade possuem dois testes adicionais. A revisão em tela de 390 pixels conferiu formulário, menu e indicadores sem transbordamento horizontal da página.
 
 ## Go no go do enunciado
 
