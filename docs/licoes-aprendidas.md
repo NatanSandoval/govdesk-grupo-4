@@ -22,7 +22,3 @@ Os exemplos de chamados não podiam ser aplicados literalmente ao domínio de es
 ## O que mudaríamos
 
 Incluir uma revisão conjunta do domínio, critérios e documentação no começo de cada sprint. Conferir migração e repetição de operações antes de ampliar o fluxo. Coletar métricas operacionais em um piloto, em vez de apresentar metas do PETI como resultados atingidos.
-
-## Validação individual
-
-Cada integrante deve confirmar ou corrigir a lição de referência e acrescentar sua experiência real, com evidência de contribuição. A autoavaliação individual continua em [autoavaliacao.md](autoavaliacao.md).
