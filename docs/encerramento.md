@@ -55,7 +55,3 @@ Ressalvas e condições: ____________________.
 Registro de aprovação pela própria PO, em commit, ata ou comentário rastreável: ____________________.
 
 Em 5 de novembro de 2026, o grupo confirmou que o aceite ainda não foi registrado e o link ainda não foi enviado ao professor. Nenhuma assinatura ou aprovação é presumida pela preparação deste documento.
-
-## Congelamento para apresentação
-
-A versão a demonstrar deve ser o último commit publicado e identificado pelo grupo no início da apresentação. Após a publicação final, manter código e documentos congelados até o término da apresentação. Falhas encontradas durante esse período devem ser anotadas no backlog, sem alterar a versão demonstrada. O grupo comunica o identificador desse commit ao professor juntamente com o link do repositório.
