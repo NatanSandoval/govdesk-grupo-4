@@ -1,8 +1,8 @@
-# Apresentação final do GovDesk
+# Apresentação final do ProntoEstoque
 
 Oito minutos de apresentação e dois de perguntas. Todos os cinco integrantes têm participação prevista. O enunciado traz uma tabela acumulada até dez minutos e também pede oito mais dois; este roteiro reserva explicitamente os dois minutos finais às perguntas.
 
-[PowerPoint editável com notas dos apresentadores](apresentacao/govdesk-semana10.pptx). O slide de lições contém referências para ensaio; cada pessoa valida sua experiência antes de apresentar.
+[PowerPoint editável com notas dos apresentadores](apresentacao/prontoestoque-semana10.pptx). O slide de lições contém referências para ensaio; cada pessoa valida sua experiência antes de apresentar.
 
 | Intervalo | Quem | Conteúdo e evidência |
 | --- | --- | --- |

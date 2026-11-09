@@ -1,16 +1,8 @@
 {% extends "base.html" %}
+{% block title %}Equipe{% endblock %}
+{% block breadcrumb %}Equipe{% endblock %}
 {% block content %}
-  <h2>Sobre a Equipe</h2>
-  <table>
-    <tr>
-      <th>Nome</th>
-      <th>Papel</th>
-    </tr>
-    {% for membro in equipe %}
-    <tr>
-      <td>{{ membro.nome }}</td>
-      <td>{{ membro.papel }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+<div class="page-head"><div><h1>Quem faz o ProntoEstoque</h1><p>Uma equipe conectando gestão de estoque, tecnologia e governança.</p></div><span class="count-pill">{{ equipe|length }} integrantes</span></div>
+<div class="team-grid">{% for membro in equipe %}<article class="team-card"><span class="avatar" aria-hidden="true">{{ membro.nome[0] }}{{ membro.nome.split()[-1][0] }}</span><h2>{{ membro.nome }}</h2><p>{{ membro.papel }}</p></article>{% endfor %}</div>
+<div class="inventory-note" style="margin-top:26px">{{ icon('users',22) }}<p><strong>Responsabilidades bem definidas.</strong> As decisões e atribuições do projeto seguem a matriz RACI documentada no repositório.</p></div>
 {% endblock %}

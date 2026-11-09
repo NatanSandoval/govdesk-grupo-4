@@ -1,4 +1,4 @@
-# Termo de encerramento do GovDesk
+# Termo de encerramento do ProntoEstoque
 
 Versão de entrega acadêmica preparada em 5 de novembro de 2026. O encerramento formal depende do aceite da Product Owner registrado ao final deste termo.
 
@@ -20,7 +20,7 @@ O protótipo cobre o fluxo acadêmico. Autenticação, perfis, CSRF, recebimento
 
 ## Resultados e indicadores
 
-- 23 testes automatizados aprovados em 5 de novembro de 2026: 12 de estoque e 11 da continuação da Semana 10. Evidências em [testes](testes-semana10.md).
+- 25 testes automatizados aprovados em 5 de novembro de 2026: 12 de estoque e 13 da continuação e interface da Semana 10. Evidências em [testes](testes-semana10.md).
 - Migração aditiva cria tabelas de solicitações e histórico, preservando produtos e movimentações existentes. Teste de atualização incluído.
 - Reenvio de avanço com status desatualizado recebe 409. Recebimento, mudança de status e histórico são atômicos e têm teste de reversão de falha.
 - Indicadores do painel são calculados no banco local. Não há medição operacional que comprove redução de perdas, satisfação ou eliminação de divergências físicas.
@@ -54,7 +54,7 @@ Ressalvas e condições: ____________________.
 
 Registro de aprovação pela própria PO, em commit, ata ou comentário rastreável: ____________________.
 
-Nenhuma assinatura ou aprovação é presumida pela preparação deste documento.
+Em 5 de novembro de 2026, o grupo confirmou que o aceite ainda não foi registrado e o link ainda não foi enviado ao professor. Nenhuma assinatura ou aprovação é presumida pela preparação deste documento.
 
 ## Congelamento para apresentação
 

@@ -10,7 +10,8 @@ obrigatorios = ['README.md', '.replit', 'docs/PETI.md', 'docs/lgpd.md', 'docs/ra
                'docs/processo-chamados.md', 'docs/processo-estoque.bpmn', 'docs/processo-estoque.svg',
                'docs/melhoria-continua.md', 'docs/encerramento.md', 'docs/licoes-aprendidas.md',
                'docs/sustentacao.md', 'docs/autoavaliacao.md', 'docs/apresentacao.md',
-               'docs/apresentacao/govdesk-semana10.pptx', 'docs/testes-semana10.md']
+               'docs/apresentacao/prontoestoque-semana10.pptx', 'docs/testes-semana10.md',
+               'docs/respostas-semana10.md']
 for arquivo in obrigatorios:
     if not (ROOT / arquivo).is_file():
         erros.append('Arquivo ausente: ' + arquivo)

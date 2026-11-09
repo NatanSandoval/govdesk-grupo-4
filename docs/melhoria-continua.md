@@ -1,4 +1,4 @@
-# Plano de melhoria contínua do GovDesk
+# Plano de melhoria contínua do ProntoEstoque
 
 Consolidação em 5 de novembro de 2026, após o período previsto para a Semana 9. O repositório consultado não continha uma avaliação registrada da Semana 9; esta análise usa a versão atual e não atribui avaliações ou resultados retroativos ao grupo.
 

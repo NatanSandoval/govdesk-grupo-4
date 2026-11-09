@@ -1,23 +1,19 @@
 {% extends "base.html" %}
+{% block title %}Nova reposição{% endblock %}
+{% block breadcrumb %}Reposições / Nova solicitação{% endblock %}
 {% block content %}
-<h2>Nova solicitação de reposição</h2>
-<p>Preencha os campos marcados com *. Use somente dados fictícios.</p>
-{% if erro %}<p class="erro" role="alert">{{ erro }}</p>{% endif %}
-{% if produtos %}
-<form method="post">
-  <label for="produto_id">Produto *
-    <select id="produto_id" name="produto_id" required>
-      <option value="">Selecione um produto</option>
-      {% for p in produtos %}<option value="{{ p.id }}" {% if dados.get('produto_id') == p.id|string %}selected{% endif %}>{{ p.nome }} ({{ p.id }})</option>{% endfor %}
-    </select>
-  </label>
-  <label for="quantidade">Quantidade solicitada *<input id="quantidade" name="quantidade" type="number" min="1" max="1000000000" step="1" value="{{ dados.get('quantidade', '') }}" required></label>
-  <label for="solicitante">Solicitante *<input id="solicitante" name="solicitante" value="{{ dados.get('solicitante', '') }}" required></label>
-  <label for="prioridade">Prioridade<select id="prioridade" name="prioridade">{% for p in prioridades %}<option value="{{ p }}" {% if dados.get('prioridade', 'média') == p %}selected{% endif %}>{{ p }}</option>{% endfor %}</select></label>
-  <label for="descricao">Descrição<textarea id="descricao" name="descricao" rows="3" aria-describedby="orientacao-reposicao">{{ dados.get('descricao', '') }}</textarea></label>
-  <p class="orientacao" id="orientacao-reposicao">Aviso de privacidade: não informe dados pessoais sensíveis, CPF ou dados de saúde. Descreva somente a necessidade de reposição.</p>
-  <button type="submit">Abrir solicitação</button>
-</form>
-{% else %}<p>Cadastre um produto antes de solicitar uma reposição.</p><a href="{{ url_for('novo') }}">Cadastrar produto</a>{% endif %}
-<p><a href="{{ url_for('solicitacoes') }}">Voltar às solicitações</a></p>
+<a class="back-link" href="{{ url_for('solicitacoes') }}">{{ icon('back',14) }}Voltar às solicitações</a>
+<div class="page-head"><div><h1>Nova solicitação de reposição</h1><p>Registre o que precisa chegar ao estoque. Nós organizamos o acompanhamento.</p></div></div>
+<div class="form-layout"><section class="panel form-panel">
+{% if erro %}<p class="erro" role="alert">{{ icon('alert',19) }}{{ erro }}</p>{% endif %}
+{% if produtos %}<form method="post"><section class="form-section"><h2>Detalhes da reposição</h2><p class="section-caption">Preencha os campos marcados com *. Use somente dados fictícios.</p><div class="field-grid">
+<label class="field-full" for="produto_id">Produto *<select id="produto_id" name="produto_id" required><option value="">Selecione um produto</option>{% for p in produtos %}<option value="{{ p.id }}" {% if dados.get('produto_id') == p.id|string %}selected{% endif %}>{{ p.nome }} ({{ p.id }})</option>{% endfor %}</select></label>
+<label for="quantidade">Quantidade solicitada *<input id="quantidade" name="quantidade" type="number" min="1" max="1000000000" step="1" placeholder="Quantidade de unidades" value="{{ dados.get('quantidade', '') }}" required></label>
+<label for="prioridade">Prioridade<select id="prioridade" name="prioridade">{% for p in prioridades %}<option value="{{ p }}" {% if dados.get('prioridade', 'média') == p %}selected{% endif %}>{{ p }}</option>{% endfor %}</select></label>
+<label class="field-full" for="solicitante">Solicitante *<input id="solicitante" name="solicitante" placeholder="Identificação de quem solicita" value="{{ dados.get('solicitante', '') }}" required></label>
+<label class="field-full" for="descricao">Descrição<textarea id="descricao" name="descricao" rows="3" placeholder="Descreva a necessidade de reposição" aria-describedby="orientacao-reposicao">{{ dados.get('descricao', '') }}</textarea></label></div>
+<p class="orientacao" id="orientacao-reposicao">{{ icon('shield',16) }}<span>Aviso de privacidade: não informe dados pessoais sensíveis, CPF ou dados de saúde. Descreva somente a necessidade de reposição.</span></p></section>
+<div class="form-actions"><a class="button ghost" href="{{ url_for('solicitacoes') }}">Cancelar</a><button type="submit">{{ icon('plus',17) }}Abrir solicitação</button></div></form>
+{% else %}{{ empty('Primeiro, um produto.', 'Cadastre um produto antes de solicitar uma reposição.', url_for('novo'), 'Cadastrar produto') }}{% endif %}</section>
+<aside class="form-aside">{{ icon('arrows',30) }}<h3>Cada etapa à vista.</h3><p>Uma solicitação mantém a reposição organizada até o recebimento.</p><ul class="help-list"><li>{{ icon('box',16) }}<div><strong>Aberta</strong>A necessidade foi registrada.</div></li><li>{{ icon('clock',16) }}<div><strong>Em andamento</strong>O atendimento já começou.</div></li><li>{{ icon('check',16) }}<div><strong>Concluída</strong>O recebimento foi confirmado e o saldo atualizado.</div></li></ul><div class="aside-caption">{{ icon('shield',16) }}Confirme o recebimento somente após a conferência.</div></aside></div>
 {% endblock %}

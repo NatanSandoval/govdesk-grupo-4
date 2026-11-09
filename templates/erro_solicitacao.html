@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% block title %}Revisar atualização{% endblock %}
+{% block breadcrumb %}Reposições / Atualização{% endblock %}
 {% block content %}
-<h2>Atualização não realizada</h2>
-<p class="erro" role="alert">{{ erro }}</p>
-<a href="{{ url_for('detalhe_solicitacao', solicitacao_id=solicitacao_id) }}">Recarregar solicitação</a>
+<div class="page-head"><div><h1>Vamos conferir esta atualização?</h1><p>A solicitação pode ter mudado desde a última vez que você abriu a página.</p></div></div>
+<section class="panel form-panel"><div class="erro" role="alert">{{ icon('alert',21) }}{{ erro }}</div><h2>Seu estoque foi preservado.</h2><p class="section-caption">Recarregue os detalhes, confira o histórico e continue a partir do status atual.</p><a class="button primary" href="{{ url_for('detalhe_solicitacao', solicitacao_id=solicitacao_id) }}">Recarregar solicitação {{ icon('arrow',17) }}</a></section>
 {% endblock %}

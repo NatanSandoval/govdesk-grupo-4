@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="GovDeskDefinitions" targetNamespace="https://github.com/NatanSandoval/govdesk-grupo-4">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="ProntoEstoqueDefinitions" targetNamespace="https://github.com/NatanSandoval/govdesk-grupo-4">
   <bpmn:process id="ProcessoReposicao" name="Reposição de estoque TO BE" isExecutable="false">
     <bpmn:laneSet id="Raias">
       <bpmn:lane id="po" name="Product Owner / CIO">

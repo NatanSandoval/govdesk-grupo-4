@@ -152,6 +152,28 @@ class EncerramentoTests(unittest.TestCase):
         html = vazia.test_client().get('/solicitacoes/nova').get_data(as_text=True)
         self.assertIn('Cadastre um produto', html)
 
+    def test_filtros_de_estoque_combinados_e_busca(self):
+        self.client.post('/novo', data={'nome': 'Caneta demonstrativa', 'responsavel': 'Equipe demo',
+                                        'prioridade': 'alta', 'estoque_inicial': '10', 'estoque_minimo': '3'})
+        for query in ['q=CANETA', 'q=Equipe', 'situacao=regular&prioridade=alta']:
+            with self.subTest(query=query):
+                html = self.client.get('/?' + query).get_data(as_text=True)
+                self.assertIn('Caneta demonstrativa', html)
+                self.assertNotIn('Papel fictício', html)
+                self.assertIn('Exibindo 1 de 2 produtos', html)
+        html = self.client.get('/?situacao=repor').get_data(as_text=True)
+        self.assertIn('Papel fictício', html)
+        self.assertNotIn('Caneta demonstrativa', html)
+
+    def test_busca_sem_resultados_e_identidade(self):
+        html = self.client.get('/?q=produto-inexistente').get_data(as_text=True)
+        self.assertIn('Nenhum produto encontrado', html)
+        self.assertIn('Exibindo 0 de 1 produtos', html)
+        self.assertIn('ProntoEstoque', html)
+        for asset in ['/static/app.css', '/static/app.js']:
+            with self.client.get(asset) as resposta:
+                self.assertEqual(resposta.status_code, 200)
+
 
 if __name__ == '__main__':
     unittest.main()

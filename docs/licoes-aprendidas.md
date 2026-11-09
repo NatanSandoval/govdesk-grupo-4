@@ -1,4 +1,4 @@
-# Lições aprendidas do GovDesk
+# Lições aprendidas do ProntoEstoque
 
 As situações abaixo derivam da evolução técnica e dos registros disponíveis do repositório. Cada integrante tem uma lição de referência para discutir e validar. A indicação de nome não constitui depoimento pessoal nem comprovação de autoria individual.
 

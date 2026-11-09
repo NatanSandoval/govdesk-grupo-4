@@ -1,4 +1,4 @@
-# Operação e sustentação do GovDesk
+# Operação e sustentação do ProntoEstoque
 
 ## Iniciar e verificar
 

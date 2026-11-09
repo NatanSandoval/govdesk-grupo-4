@@ -1,6 +1,6 @@
 # Matriz RACI do Projeto
 
-Esta matriz distribui as responsabilidades do GovDesk para o escopo de gerenciamento de estoques definido no PETI, preservando os papéis da equipe registrados no README.
+Esta matriz distribui as responsabilidades do ProntoEstoque para o escopo de gerenciamento de estoques definido no PETI, preservando os papéis da equipe registrados no README.
 
 - **R — Responsible:** executa a atividade.
 - **A — Accountable:** responde pelo resultado e pela aprovação final da atividade.

@@ -1,18 +1,34 @@
 {% extends "base.html" %}
+{% block title %}Visão geral{% endblock %}
 {% block content %}
-  <h2>Estoque</h2>
-  <p>Total de produtos cadastrados: <strong>{{ total }}</strong></p>
-  <a href="{{ url_for('novo') }}">+ Novo produto</a>
-  <div class="tabela"><table>
-    <caption>Produtos e saldos atuais</caption>
-    <thead><tr>
-      {% for coluna in ['ID', 'Produto', 'Responsável', 'Prioridade de reposição', 'Saldo', 'Mínimo', 'Situação', 'Ações'] %}<th scope="col">{{ coluna }}</th>{% endfor %}
-    </tr></thead>
-    <tbody>{% for p in produtos %}
-      <tr><td>{{ p.id }}</td><td>{{ p.nome }}</td><td>{{ p.responsavel }}</td><td>{{ p.prioridade }}</td>
-        <td>{{ p.saldo }}</td><td>{{ p.estoque_minimo }}</td>
-        <td>{% if p.saldo < p.estoque_minimo %}<strong class="alerta">Abaixo do mínimo</strong>{% else %}Regular{% endif %}</td>
-        <td><a href="{{ url_for('movimentar', produto_id=p.id) }}">Movimentar {{ p.nome }}</a></td></tr>
-    {% else %}<tr><td colspan="8">Nenhum produto cadastrado. Cadastre o primeiro produto.</td></tr>{% endfor %}</tbody>
-  </table></div>
+<div class="page-head"><div><h1>Visão geral do estoque</h1><p>Acompanhe seus produtos e mantenha cada reposição no radar.</p></div><div class="head-actions"><a class="button primary" href="{{ url_for('novo') }}">{{ icon('plus',17) }}Novo produto</a></div></div>
+<div class="stats">
+  <section class="stat"><div class="stat-top">Produtos cadastrados<span class="stat-symbol">{{ icon('box',18) }}</span></div><p class="stat-number">{{ total }}</p><p class="stat-bottom">Itens no seu catálogo</p></section>
+  <section class="stat"><div class="stat-top">Unidades em estoque<span class="stat-symbol">{{ icon('list',18) }}</span></div><p class="stat-number">{{ unidades }}</p><p class="stat-bottom">Saldo de todos os produtos</p></section>
+  <section class="stat attention"><div class="stat-top">Abaixo do mínimo<span class="stat-symbol">{{ icon('alert',18) }}</span></div><p class="stat-number">{{ abaixo_minimo }}</p><p class="stat-bottom">{{ 'Precisam de atenção' if abaixo_minimo else 'Estoque dentro dos limites' }}</p></section>
+  <section class="stat featured"><div class="stat-top">Reposições em aberto<span class="stat-symbol">{{ icon('arrows',18) }}</span></div><p class="stat-number">{{ pendentes }}</p><p class="stat-bottom">Abertas ou em andamento</p></section>
+</div>
+<section class="panel">
+  <header class="panel-head"><div><div class="panel-title"><h2>Seus produtos</h2><span class="count-pill">{{ total }}</span></div><p>Disponibilidade, responsáveis e prioridades em um só lugar.</p></div></header>
+  <form method="get" class="filters" role="search">
+    <div class="search-input">{{ icon('search',17) }}<input name="q" aria-label="Buscar produto ou responsável" placeholder="Buscar produto ou responsável..." value="{{ request.args.get('q', '') }}"></div>
+    <select name="situacao" aria-label="Filtrar por situação"><option value="">Todas as situações</option><option value="regular" {% if request.args.get('situacao') == 'regular' %}selected{% endif %}>Estoque regular</option><option value="repor" {% if request.args.get('situacao') == 'repor' %}selected{% endif %}>Abaixo do mínimo</option></select>
+    <select name="prioridade" aria-label="Filtrar por prioridade"><option value="">Todas as prioridades</option>{% for p in ['baixa','média','alta'] %}<option value="{{ p }}" {% if request.args.get('prioridade') == p %}selected{% endif %}>{{ p|capitalize }}</option>{% endfor %}</select>
+    <button type="submit">Filtrar</button>{% if request.args %}<a class="filter-clear" href="{{ url_for('index') }}">Limpar</a>{% endif %}
+  </form>
+  {% if produtos %}
+  <div class="tabela"><table><caption>Produtos e saldos atuais</caption><thead><tr><th scope="col">Produto</th><th scope="col">Responsável</th><th scope="col">Prioridade</th><th scope="col">Saldo</th><th scope="col">Mínimo</th><th scope="col">Situação</th><th scope="col">Ações</th></tr></thead><tbody>
+  {% for p in produtos %}<tr>
+    <td><div class="product-cell"><span class="product-symbol">{{ icon('box',20) }}</span><div><strong>{{ p.nome }}</strong><p class="product-code">PRD-{{ '%04d'|format(p.id) }}</p></div></div></td>
+    <td><span class="person"><span class="avatar" aria-hidden="true">{{ p.responsavel[0]|upper }}</span>{{ p.responsavel }}</span></td>
+    <td>{{ priority(p.prioridade) }}</td><td>{{ p.saldo }}</td><td>{{ p.estoque_minimo }}</td>
+    <td>{% if p.saldo < p.estoque_minimo %}<span class="badge warning"><span class="dot"></span>Abaixo do mínimo</span>{% else %}<span class="badge success"><span class="dot"></span>Regular</span>{% endif %}</td>
+    <td><a class="icon-button" href="{{ url_for('movimentar', produto_id=p.id) }}" aria-label="Movimentar {{ p.nome }}" title="Movimentar {{ p.nome }}">{{ icon('arrows',16) }}</a></td>
+  </tr>{% endfor %}
+  </tbody></table></div>
+  {% elif total %}{{ empty('Nenhum produto encontrado', 'Tente outro nome ou ajuste os filtros para encontrar o que precisa.') }}
+  {% else %}{{ empty('Seu estoque começa aqui', 'Nenhum produto cadastrado. Adicione o primeiro item e acompanhe sua disponibilidade.', url_for('novo'), 'Cadastrar produto') }}{% endif %}
+  <div class="table-bottom"><span>Exibindo {{ produtos|length }} de {{ total }} produtos</span><span>Saldos calculados a partir das movimentações</span></div>
+</section>
+<div class="inventory-note">{{ icon('leaf',21) }}<p><strong>{{ 'É hora de planejar a reposição.' if abaixo_minimo else 'Tudo organizado para o próximo passo.' }}</strong> {{ 'Abra uma solicitação para os produtos que precisam de atenção.' if abaixo_minimo else 'Registre entradas e saídas para manter seus saldos atualizados.' }}</p><a class="text-link" href="{{ url_for('solicitacoes') }}">Ver reposições {{ icon('arrow',16) }}</a></div>
 {% endblock %}

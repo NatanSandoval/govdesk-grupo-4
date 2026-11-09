@@ -1,42 +1,36 @@
+{% from '_ui.html' import icon, priority, status, empty %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GovDesk</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
-        nav { background: #f4f4f4; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
-        nav a { margin-right: 15px; text-decoration: none; color: #333; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        * { box-sizing: border-box; }
-        form { display: grid; gap: 14px; max-width: 520px; }
-        label { display: grid; gap: 4px; font-weight: bold; }
-        input, textarea, select, button { font: inherit; padding: 8px; }
-        input, textarea, select { width: 100%; border: 1px solid #767676; border-radius: 4px; }
-        button { background: #1e2761; color: white; border: 0; border-radius: 6px; cursor: pointer; }
-        .orientacao { display: block; margin: 0; padding: 10px; color: #374151; background: #f4f4f4; font-size: 0.9rem; }
-        .erro { background: #fdecea; color: #8a1f17; padding: 10px 14px; border-radius: 6px; }
-        .tabela { overflow-x: auto; }
-        .alerta { color: #8a1f17; background: #fdecea; }
-    </style>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123e35">
+  <title>{% block title %}Gestão de estoque{% endblock %} · ProntoEstoque</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
-    <header>
-        <h1>GovDesk — Gestão de estoques</h1>
-        <nav>
-            <a href="/">Início</a>
-            <a href="{{ url_for('novo') }}">Novo produto</a>
-            <a href="{{ url_for('solicitacoes') }}">Solicitações de reposição</a>
-            <a href="{{ url_for('indicadores') }}">Indicadores</a>
-            <a href="/sobre">Sobre a Equipe</a>
-        </nav>
+  <aside class="sidebar" id="navigation">
+    <a class="brand" href="{{ url_for('index') }}" aria-label="ProntoEstoque — início"><span class="brand-mark">{{ icon('box',23) }}</span>ProntoEstoque</a>
+    <p class="brand-caption">GESTÃO DE ESTOQUE</p>
+    <p class="nav-label">ESPAÇO DE TRABALHO</p>
+    {% set endpoint = request.endpoint %}
+    <nav class="side-nav" aria-label="Navegação principal">
+      {% for route, label, glyph, endpoints in [('index','Visão geral','grid',['index','novo','movimentar']),('solicitacoes','Reposições','arrows',['solicitacoes','nova_solicitacao','detalhe_solicitacao','avancar_solicitacao']),('indicadores','Indicadores','chart',['indicadores']),('sobre','Equipe','users',['sobre'])] %}
+      <a href="{{ url_for(route) }}" {% if endpoint in endpoints %}class="active" aria-current="page"{% endif %}>{{ icon(glyph,19) }}{{ label }}{% if endpoint in endpoints %}<span class="nav-arrow">{{ icon('chevron',14) }}</span>{% endif %}</a>
+      {% endfor %}
+    </nav>
+    <div class="sidebar-bottom"><div class="sidebar-note">{{ icon('leaf',19) }}<p><strong>Organização em cada etapa.</strong>Do primeiro registro à reposição do seu estoque.</p></div></div>
+  </aside>
+  <button class="menu-overlay" aria-label="Fechar menu"></button>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="navigation" aria-label="Abrir menu">{{ icon('menu',20) }}</button>
+      <div class="breadcrumb"><span>Espaço de trabalho</span>{{ icon('chevron',12) }}<strong>{% block breadcrumb %}Visão geral{% endblock %}</strong></div>
+      <div class="topbar-right"><span class="tiny-box">{{ icon('box',15) }}</span>Seu estoque, sob controle</div>
     </header>
-    
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <main class="main-content" id="conteudo">{% block content %}{% endblock %}</main>
+    <footer class="site-footer"><span><strong>ProntoEstoque</strong> &nbsp; Gestão com clareza.</span><span>Ambiente acadêmico · Utilize dados fictícios</span></footer>
+  </div>
 </body>
 </html>
